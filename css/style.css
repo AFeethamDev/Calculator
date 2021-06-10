@@ -1,0 +1,109 @@
+/* Box Model Hack */
+* {
+     -moz-box-sizing: border-box;
+}
+
+/* Clear fix hack */
+.clearfix:after {
+     content: ".";
+     display: block;
+     clear: both;
+     visibility: hidden;
+     line-height: 0;
+     height: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+
+body {
+  font-family: Roboto;
+  font-size: 24px;
+  background: linear-gradient(to right, #181C2D, #899550);
+}
+
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+header {
+
+}
+
+footer {
+
+}
+
+.calculator {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
+  grid-template-columns: repeat(5, 80px);
+  grid-template-rows: minmax(150px, auto) repeat(5, 80px);
+}
+
+.output {
+  color: white;
+  background-color: rgba(1, 1, 1, .50);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  border: 5px solid rgba(255, 255, 255, .25);
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.previous {
+  font-size: 12px;
+}
+
+.current {
+  font-size: 32px;
+}
+
+button {
+  cursor: pointer;
+  color: rgba(255, 255, 255, .65);
+  border: 2px solid rgba(255, 255, 255, .25);
+  transition: all .07s ease;
+  outline: none;
+  margin: 2px;
+  border-radius: 20px;
+  background-color: rgba(1, 1, 1, .40);
+}
+
+button:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+button.pad {
+  background-color: rgba(1, 1, 1, .20);
+}
+
+.thick {
+  grid-column: span 2;
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+.clicked {
+  transform: scale(0.8);
+  border-color: black;
+  background-color: rgba(1, 1, 1, .60);
+}
+
+button.pad.clicked {
+  background-color: rgba(1, 1, 1, .40);
+}
