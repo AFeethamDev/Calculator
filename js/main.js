@@ -7,11 +7,7 @@ class Calculator{
 
   //takes in a string and appends it to the current selection, if it is not a duplicate "."
   appendNumber(button){
-    if(button === "." && this.current.includes(".")){
-      return;
-    }else{
-      this.current = `${this.current}${button}`;
-    }
+    button === "." && this.current.includes(".") ? this.current = this.current : this.current = `${this.current}${button}`;
   }
 
   //Changes the operation to the inputted string, appends it to the previous selection, and clears the current selection.
@@ -32,7 +28,7 @@ class Calculator{
       this.current = "";
   }
 
-  //resets the calculator to empty strings
+  //resets the calculator to empty values
   clearDisplay(){
     this.previous = "";
     this.current = "";
@@ -44,44 +40,36 @@ class Calculator{
     this.current = this.current.toString().slice(0, -1);
   }
 
-  //modifies the current selection based on inputted button
+  //modifies the current selection based on the inputted button
   calcModifier(button){
     let curr = parseFloat(this.current);
     if (isNaN(curr)) return;
-    if (button === "√"){
-      this.current = Math.sqrt(parseFloat(this.current));
-    }else if(button === "1/X"){
-      this.current = 1 / parseFloat(this.current);
-    }else if(button === "+/-"){
-      this.current = -this.current;
+    switch(button){
+      case "√": this.current = Math.sqrt(parseFloat(this.current)); break
+      case "1/X": this.current = 1 / parseFloat(this.current); break
+      case"+/-": this.current = -this.current;
     }
   }
 
-  //Solves the inputted problem if both selections are numbers
+  //If both selections are numbers, solves the inputted problem
   solveProblem(){
     let prev = parseFloat(this.previous.slice(0, -1));
     let curr = parseFloat(this.current);
     if (isNaN(prev) || isNaN(curr)) return;
-    if (this.operation === "*"){
-      this.current = prev * curr;
-    }else if(this.operation === "/"){
-      this.current = prev / curr;
-    }else if(this.operation === "+"){
-      this.current = prev + curr;
-    }else if(this.operation === "-"){
-      this.current = prev - curr;
-    }else if(this.operation === "%"){
-      this.current = prev % curr;
-    }else if(this.operation === "^"){
-      this.current = prev ** curr;
-    }else{
-      return;
+    switch(this.operation){
+      case "*": this.current = prev * curr; break
+      case "/": this.current = prev / curr; break
+      case "+": this.current = prev + curr; break
+      case "-": this.current = prev - curr; break
+      case "%": this.current = prev % curr; break
+      case "^": this.current = prev ** curr; break
+      default: return; break
     }
     this.operation = "";
     this.previous = "";
   }
 
-  //updates the display in the document
+  //Refreshes the HTML to display the current values
   updateDisplay(){
     document.querySelector("[data-previous]").innerText = this.previous;
     document.querySelector("[data-current]").innerText = this.current;
@@ -93,7 +81,7 @@ const anim = Array.from(document.querySelectorAll('button'));
 calculator.clearDisplay();
 
 
-//If the user clicks a number button - appends the number to the current and updates the display.
+//On-click of a number button - appends the number to the current and updates the display.
 document.querySelectorAll("[data-num]").forEach(button => {
   button.addEventListener("click", () => {
     calculator.appendNumber(button.innerText);
@@ -102,7 +90,7 @@ document.querySelectorAll("[data-num]").forEach(button => {
   })
 })
 
-//If the user clicks an operation number - updates the operation and display.
+//On-click of an operation number - updates the operation and display.
 document.querySelectorAll("[data-op]").forEach(button => {
   button.addEventListener("click", () => {
     calculator.selectOperation(button.innerText);
@@ -111,7 +99,7 @@ document.querySelectorAll("[data-op]").forEach(button => {
   })
 })
 
-//If the user clicks on an input-modifier function, calculates it and updates the display.
+//On-click of on an input-modifier function, calculates it and updates the display.
 document.querySelectorAll("[data-modifier]").forEach(button => {
   button.addEventListener("click", () => {
     calculator.calcModifier(button.innerText);
@@ -120,28 +108,28 @@ document.querySelectorAll("[data-modifier]").forEach(button => {
   })
 })
 
-//If the user clicks equals - solves the problem and updates the display.
+//On-click of equals - solves the problem and updates the display.
 document.querySelector("[data-equals]").addEventListener("click", button =>{
   calculator.solveProblem();
   calculator.updateDisplay();
   document.querySelector("[data-equals]").classList.add('clicked');
 })
 
-//If the user clicks clear - resets the calculator and updates the display.
+//On-click of clear - resets the calculator and updates the display.
 document.querySelector("[data-clear]").addEventListener("click", button =>{
   calculator.clearDisplay();
   calculator.updateDisplay();
   document.querySelector("[data-clear]").classList.add('clicked');
 })
 
-//If the user clicks delete - removes a character from the current selection and updates the display.
+//On-click of delete - removes a character from the current selection and updates the display.
 document.querySelector("[data-delete]").addEventListener("click", button =>{
   calculator.backSpace();
   calculator.updateDisplay();
   document.querySelector("[data-delete]").classList.add('clicked');
 })
 
-//"unpresses" the button at the end of the on-click animation.
+//"unpresses" the button at the end of the On-click of animation.
 function removeTransition(button) {
   if (button.propertyName !== 'transform') return;
   button.target.classList.remove('clicked');
