@@ -7,6 +7,9 @@ class Calculator{
 
   //takes in a string and appends it to the current selection, if it is not a duplicate "."
   appendNumber(button){
+    if(button === "." && this.current == ""){
+      this.current = "0."
+    }
     button === "." && this.current.includes(".") ? this.current = this.current : this.current = `${this.current}${button}`;
   }
 
