@@ -17,14 +17,12 @@ class Calculator{
       return;
     }else if(this.previous !== "" && this.current === ""){
       this.operation = `${button}`;
-      this.previous = `${this.previous.toString().slice(0, -1)}${this.operation}`;
-      this.current = "";
       return;
     }else if(this.previous !== "" && this.current !== ""){
       this.solveProblem();
     }
       this.operation = `${button}`;
-      this.previous = `${this.current}${this.operation}`;
+      this.previous = `${this.current}`;
       this.current = "";
   }
 
@@ -45,15 +43,15 @@ class Calculator{
     let curr = parseFloat(this.current);
     if (isNaN(curr)) return;
     switch(button){
-      case "√": this.current = Math.sqrt(parseFloat(this.current)); break
-      case "1/X": this.current = 1 / parseFloat(this.current); break
-      case"+/-": this.current = -this.current;
+      case "√": this.current = `${Math.sqrt(parseFloat(this.current))}`; break
+      case "1/X": this.current = `${1 / parseFloat(this.current)}`; break
+      case"+/-": this.current = `${-this.current}`;
     }
   }
 
   //If both selections are numbers, solves the inputted problem
   solveProblem(){
-    let prev = parseFloat(this.previous.slice(0, -1));
+    let prev = parseFloat(this.previous);
     let curr = parseFloat(this.current);
     if (isNaN(prev) || isNaN(curr)) return;
     switch(this.operation){
@@ -65,21 +63,37 @@ class Calculator{
       case "^": this.current = prev ** curr; break
       default: return; break
     }
+    this.current = `${this.current}`
     this.operation = "";
     this.previous = "";
   }
 
+  //Helper function to make the numbers prettier AKA (adds commas)
+  toDisplayNum(str){
+    if(str == ""){
+      return str;
+    }else{
+      let digits = parseFloat(str.split(".")[0]).toLocaleString('en', { maximumFractionDigits: 0 });
+      let decimal = str.split(".")[1];
+      return decimal != undefined ? `${digits}.${decimal}` : `${digits}`;
+    }
+  }
+
   //Refreshes the HTML to display the current values
   updateDisplay(){
-    document.querySelector("[data-previous]").innerText = this.previous;
-    document.querySelector("[data-current]").innerText = this.current;
+    document.querySelector("[data-previous]").innerText = `${this.toDisplayNum(this.previous)}${this.operation}`;
+    document.querySelector("[data-current]").innerText = this.toDisplayNum(this.current);
   }
 }
+
+//---INITIALIZATION ---
 
 const calculator = new Calculator("", "");
 const anim = Array.from(document.querySelectorAll('button'));
 calculator.clearDisplay();
 
+
+//--- ON-CLICK FUNCTIONS ---
 
 //On-click of a number button - appends the number to the current and updates the display.
 document.querySelectorAll("[data-num]").forEach(button => {
@@ -129,7 +143,7 @@ document.querySelector("[data-delete]").addEventListener("click", button =>{
   document.querySelector("[data-delete]").classList.add('clicked');
 })
 
-//"unpresses" the button at the end of the On-click of animation.
+//"unpresses" the button at the end of the on-click animation.
 function removeTransition(button) {
   if (button.propertyName !== 'transform') return;
   button.target.classList.remove('clicked');
