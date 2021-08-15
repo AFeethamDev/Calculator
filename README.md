@@ -9,7 +9,7 @@ Lightweight calculator app with simple CSS animations for responsiveness.
 
 **Tech used:** HTML, CSS, JavaScript
 
-This project was made with the intention of using class-based programming to create a simple but well-performing program. The program works by manipulating three main values, in the calculator object: the Previous value taken in before an operation button is pressed, the Current value being inputted, and the Operation itself.
+This project was made with the intention of using class-based programming to create a simple but well-performing calculator. The program works by manipulating three main values, in the calculator object: the Previous value taken in before an operation button is pressed, the Current value being inputted, and the Operation itself.
 
 When a number is pressed, the value gets appended to the Current value. This Current value become the Previous value when an operation button is pressed, which also sets the Operation value. The inputted math problem is solved when the user clicks the equals button or another operation, updating the Current value to the solution. The viewport itself is updated and animated on the event of any button being clicked.
 
