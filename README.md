@@ -3,7 +3,7 @@ Lightweight calculator app with simple CSS animations for responsiveness.
 
 **Link to project:** https://afeethamdev.github.io/Calculator/index.html
 
-![Calculator Demo](https://i.imgur.com/yZ7snUo.gifv)
+![Calculator Demo](https://i.imgur.com/yZ7snUo.gif)
 
 ## How It's Made:
 
